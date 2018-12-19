@@ -1,6 +1,6 @@
 //data array format 
 
-var friendsData = [
+var friendsArray = [
 {
     "name": "John",
     "photo":"",
@@ -19,3 +19,5 @@ var friendsData = [
     ]
 }
 ]
+
+module.exports = friendsArray;
