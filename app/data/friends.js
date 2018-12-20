@@ -3,7 +3,7 @@
 var friendsArray = [
 {
     "name": "John",
-    "photo":"",
+    "photo":"<img href=https://picsum.photos/200/300?image=1012",
     "scores": [
         3,
         4,
