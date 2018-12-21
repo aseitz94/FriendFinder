@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Home Page</title>
+    <title>Survey Page</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">sssssss
+    <script src="https://code.jquery.com/jquery.js"></script>
 </head>
 <style>
     .questions{
@@ -40,7 +40,7 @@
             <h3 class="font-weight-bold">Question 1</h3>
             <div class="form-group">
                 <label for="question1" class="questions">In a group setting, you like to take charge.</label>
-                <select class="form-control w-25" id="question1">
+                <select class="chosenSelection w-25" id="question1">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -52,7 +52,7 @@
             <h3 class="font-weight-bold">Question 2</h3>
             <div class="form-group">
                 <label for="question2" class="questions">You are full of ideas and plans yet to be explored.</label>
-                <select class="form-control w-25" id="question2">
+                <select class="chosenSelection w-25" id="question2">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -64,7 +64,7 @@
             <h3 class="font-weight-bold">Question 3</h3>
             <div class="form-group">
                 <label for="question3" class="questions">You find it difficult to relate to others.</label>
-                <select class="form-control w-25" id="question3">
+                <select class="chosenSelection w-25" id="question3">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -76,7 +76,7 @@
             <h3 class="font-weight-bold">Question 4</h3>
             <div class="form-group">
                 <label for="question4" class="questions">You believe everyone's opinions should be respected.</label>
-                <select class="form-control w-25" id="question4">
+                <select class="chosenSelection w-25" id="question4">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -88,7 +88,7 @@
             <h3 class="font-weight-bold">Question 5</h3>
             <div class="form-group">
                 <label for="question5" class="questions">You enjoy being alone than in a group.</label>
-                <select class="form-control w-25" id="question5">
+                <select class="chosenSelection w-25" id="question5">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -100,7 +100,7 @@
             <h3 class="font-weight-bold">Question 6</h3>
             <div class="form-group">
                 <label for="question6" class="questions"> People find it easy to talk to you.</label>
-                <select class="form-control w-25" id="question6">
+                <select class="chosenSelection w-25" id="question6">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -112,7 +112,7 @@
             <h3 class="font-weight-bold">Question 7</h3>
             <div class="form-group">
                 <label for="question7" class="questions">You are more likely to overthink a simple solution.</label>
-                <select class="form-control w-25" id="question7">
+                <select class="chosenSelection w-25" id="question7">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -124,7 +124,7 @@
             <h3 class="font-weight-bold">Question 8</h3>
             <div class="form-group">
                 <label for="question8" class="questions">You think facts are more important than feelings.</label>
-                <select class="form-control w-25" id="question8">
+                <select class="chosenSelection w-25" id="question8">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -136,7 +136,7 @@
             <h3 class="font-weight-bold">Question 9</h3>
             <div class="form-group">
                 <label for="question9" class="questions">You run a strict routine everyday.</label>
-                <select class="form-control w-25" id="question9">
+                <select class="chosenSelection w-25" id="question9">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -148,7 +148,7 @@
             <h3 class="font-weight-bold">Question 10</h3>
             <div class="form-group">
                 <label for="question10" class="questions">You often act before thinking.</label>
-                <select class="form-control w-25" id="question10">
+                <select class="chosenSelection w-25" id="question10">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -161,11 +161,130 @@
 
         </form>
         <hr>
+        <!--FOOTER-->
         <footer class="footer">
             <div class="container">
                 <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/aseitz94/FriendFinder">Github
                         Repo</a>
             </div>
         </footer>
-    </div>
+        <!--Modal-->
+        <div id="results-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h2 class="modal-title"><strong>Best Match</strong></h2>
+                    </div>
+                    <div class="modal-body">
+                        <h2 id="match-name"></h2>
+                        <img id="match-img" src=" https://picsum.photos/200/300?image=1012">
+                        alt="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
 </body>
+
+<script type="text/javascript">
+    $(".submit").on("click", function (event) {
+        event.preventDefault();
+//validate forms
+        function validateForm() {
+        var isValid = true;
+        $(".form-control").each(function() {
+          if ($(this).val() === "") {
+            isValid = false;
+          }
+        });
+
+        $(".chosenSelection").each(function() {
+
+          if ($(this).val() === "") {
+            isValid = false;
+          }
+        });
+        return isValid;
+      }
+
+      // If all required fields are filled
+      if (validateForm()) {
+
+        var newUser = {
+            name: $("#name").val().trim(),
+            photo: $("#photo").val().trim(),
+            scores: [
+                $("#question1").val(),
+                $("#question2").val(),
+                $("#question3").val(),
+                $("#question4").val(),
+                $("#question5").val(),
+                $("#question6").val(),
+                $("#question7").val(),
+                $("#question8").val(),
+                $("#question9").val(),
+                $("#question10").val(),
+            ]
+        }
+        console.log(newUser);
+
+        function matching(arr) {
+        var totalDifference = [],
+
+        for (var i = 0; i < friendsArray.scores.length; i++) {
+            var friendData = friendsArray.scores[i];
+        };
+        for (var j = 0; j < newUser.scores.length; j++) {
+            var newUserData = newUser.scores[j]
+        }
+        if (friendData[i] !== newUserData[j]) {
+            var result =
+                [Math.abs(freindData[i] - newUserData[j])];
+            var difference = result.reduce(function (a, b) {
+                return a + b;
+            }, 0);
+            difference.push(totalDifference);
+        }
+        console.log(totalDifference)
+
+    // questions to ask: would you make another array for total differences?
+    //is the math right?
+    //how to get the user that connects to the minimum?
+
+   
+        totalDifference.min = function (array) {
+            return Math.min.apply(Math, array);
+        };
+        var minimum = totalDifference.min(array);
+
+        if (minimum) {
+
+        }
+    
+        }
+        $.post("/api/friends", userData, function (data) {
+
+            //Display matching user
+            $("#match-name").text(data.name);
+            $("#match-img").attr("src", data.photo);
+
+            // Show the modal 
+            $("#results-modal").modal("toggle");
+
+        }) 
+      }else {
+            alert("Please fill out all fields before submitting!");
+        }
+});
+
+
+
+   
+
+    
+
+</script>
