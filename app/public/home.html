@@ -14,9 +14,24 @@
 </head>
 
 <style>
-.display-3{
-    font-family: 'Poppins', sans-serif;
-}
+    body{
+        background-color: rgb(243,238,213);
+    }
+   
+    .jumbotron{
+        background-color: rgb(153,113,101);
+        color:rgb(245,202,195);
+    };
+
+    .links:link{
+        color: rgb(255,99,151);
+    }
+    .links:hover{
+        color:black;
+    }
+    .display-3 {
+        font-family: 'Poppins', sans-serif;
+    }
 </style>
 
 <body>
@@ -25,14 +40,14 @@
             <h1 class="display-3 font-weight-bold">Friend Finder</h1>
             <hr class="my-4">
             <p class="h2">Answer these survey questions.</p>
-            <p class ="h2">Find out who your most compatible new friend is! </p>
-            <a class="btn btn-primary btn-lg mt-3 py-3" href="../public/survey.html" role="button">Take Survey</a>
+            <p class="h2">Find out who your most compatible new friend is! </p>
+            <a class="btn  btn-lg mt-3 py-3 submit" style="background-color:rgb(247, 241, 241); color:rgb(255,99,151); font-weight: bold " href="../public/survey.html" role="button">Take Survey</a>
         </div>
     </div>
 
     <footer class="footer">
-        <div class="container">
-            <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/aseitz94/FriendFinder">Github
+        <div class="container ">
+            <p><a class="links" href="/api/friends">API Friends List</a> | <a class="links" href="https://github.com/aseitz94/FriendFinder">Github
                     Repo</a>
         </div>
     </footer>
