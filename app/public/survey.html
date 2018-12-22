@@ -11,7 +11,11 @@
     <script src="https://code.jquery.com/jquery.js"></script>
 </head>
 <style>
+    body{
+    background-color:rgb(198,230,206);
+    }
     .questions{
+        color:rgb(153,113,101);
         font-size: 20px;
     }
     .submitText{
@@ -193,98 +197,84 @@
 <script type="text/javascript">
     $(".submit").on("click", function (event) {
         event.preventDefault();
-//validate forms
+        //validate forms
         function validateForm() {
-        var isValid = true;
-        $(".form-control").each(function() {
-          if ($(this).val() === "") {
-            isValid = false;
-          }
-        });
+            var isValid = true;
+            $(".form-control").each(function () {
+                if ($(this).val() === "") {
+                    isValid = false;
+                }
+            });
 
-        $(".chosenSelection").each(function() {
+            $(".chosenSelection").each(function () {
 
-          if ($(this).val() === "") {
-            isValid = false;
-          }
-        });
-        return isValid;
-      }
-
-      // If all required fields are filled
-      if (validateForm()) {
-
-        var newUser = {
-            name: $("#name").val().trim(),
-            photo: $("#photo").val().trim(),
-            scores: [
-                $("#question1").val(),
-                $("#question2").val(),
-                $("#question3").val(),
-                $("#question4").val(),
-                $("#question5").val(),
-                $("#question6").val(),
-                $("#question7").val(),
-                $("#question8").val(),
-                $("#question9").val(),
-                $("#question10").val(),
-            ]
+                if ($(this).val() === "") {
+                    isValid = false;
+                }
+            });
+            return isValid;
         }
-        console.log(newUser);
 
-        function matching(arr) {
-        var totalDifference = [],
+        // If all required fields are filled
+        if (validateForm()) {
 
-        for (var i = 0; i < friendsArray.scores.length; i++) {
-            var friendData = friendsArray.scores[i];
-        };
-        for (var j = 0; j < newUser.scores.length; j++) {
-            var newUserData = newUser.scores[j]
-        }
-        if (friendData[i] !== newUserData[j]) {
-            var result =
-                [Math.abs(freindData[i] - newUserData[j])];
-            var difference = result.reduce(function (a, b) {
-                return a + b;
-            }, 0);
-            difference.push(totalDifference);
-        }
-        console.log(totalDifference)
+            var newUser = {
+                name: $("#name").val().trim(),
+                photo: $("#photo").val().trim(),
+                scores: [
+                    $("#question1").val(),
+                    $("#question2").val(),
+                    $("#question3").val(),
+                    $("#question4").val(),
+                    $("#question5").val(),
+                    $("#question6").val(),
+                    $("#question7").val(),
+                    $("#question8").val(),
+                    $("#question9").val(),
+                    $("#question10").val(),
+                ]
+            }
+            console.log("New User: " + newUser);
 
-    // questions to ask: would you make another array for total differences?
-    //is the math right?
-    //how to get the user that connects to the minimum?
+            function matching() {
+                var totalDifference = [];
+                var newUserData = newUser.scores;
+                var closestMatch
+                var minimumScore = 41
+                for (var x = 0; x < friendsArray.length; x++) {
+                    var friendData = friendsArray[x].scores;
+                    var result = 0;
+                    console.log("friendData: " + friendData)
+                    for (var i = 0; i < friendData.length; i++) {
+                        result += Math.abs(friendData[i] - newUserData[i])
+                        console.log("result: " + result);
+                    }
+                    if (result < minimumScore){
+                        closestMatch = friendsArray[x]
+                        minimumScore = result;
+                    }
+                };
+            }
+            matching();
+            $.post("/api/friends", closestMatch, function (data) {
 
-   
-        totalDifference.min = function (array) {
-            return Math.min.apply(Math, array);
-        };
-        var minimum = totalDifference.min(array);
+                //Display matching user
+                $("#match-name").text(data.name);
+                $("#match-img").attr("src", data.photo);
 
-        if (minimum) {
+                // Show the modal 
+                $("#results-modal").modal("toggle");
 
-        }
-    
-        }
-        $.post("/api/friends", userData, function (data) {
-
-            //Display matching user
-            $("#match-name").text(data.name);
-            $("#match-img").attr("src", data.photo);
-
-            // Show the modal 
-            $("#results-modal").modal("toggle");
-
-        }) 
-      }else {
+            })
+        } else {
             alert("Please fill out all fields before submitting!");
         }
-});
+    });
 
 
 
-   
 
-    
+
+
 
 </script>
